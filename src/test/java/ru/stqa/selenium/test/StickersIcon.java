@@ -1,45 +1,45 @@
 package ru.stqa.selenium.test;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-//import org.openqa.selenium.ie.InternetExplorerDriver;
-//import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
+import java.util.List;
 
-import static java.lang.Thread.sleep;
-import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
-
-public class MyFirstTest {
+public class StickersIcon {
 
     private WebDriver driver;
     private WebDriverWait wait;
 
-
+    
     @Test
-    public void MyFirstTest() throws InterruptedException {
-        driver.navigate().to("http://www.google.com");
-        driver.findElement(By.name("q")).sendKeys("webdriver");
-        sleep(1000);
-        driver.findElement(By.name("btnK")).click();
-        wait.until(titleIs("webdriver - Поиск в Google"));
+    public void StickersDuck() {
+        driver.navigate().to("http://localhost/litecart");
+        List<WebElement> Ducklist= driver.findElements(By.cssSelector("li.product"));
+        for (WebElement product : Ducklist) {
+
+            List<WebElement> Stick = product.findElements(By.cssSelector("div.sticker"));
+            Assert.assertEquals(1, Stick.size());
+        }
     }
 
     @After
-    public void stop(){
+    public void stop() {
         driver.quit();
         driver = null;
     }
     @Before
-    public void start(){
+    public void start() {
         ChromeOptions o = new ChromeOptions();
         o.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(o);
+        driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 }

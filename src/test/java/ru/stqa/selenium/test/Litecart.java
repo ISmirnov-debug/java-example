@@ -26,16 +26,18 @@ public class Litecart {
         driver.findElement(By.name("login")).click();
         wait.until(titleIs("My Store"));
     }
-    public void start(){
-        ChromeOptions o = new ChromeOptions();
-        o.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(o);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    }
 
     @After
     public void stop() {
         driver.quit();
         driver = null;
+    }
+    @Before
+    public void start() {
+            ChromeOptions o = new ChromeOptions();
+            o.addArguments("--remote-allow-origins=*");
+            driver = new ChromeDriver(o);
+            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     }
 }
