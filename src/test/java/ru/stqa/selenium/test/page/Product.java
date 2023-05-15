@@ -21,7 +21,6 @@ public class Product extends Page{
     }
     public Product CartUpdate(int productsCount) {
         wait.until(ExpectedConditions.textToBe(CART_PRODUCTS_COUNT, "" + productsCount));
-        driver.findElement(PRODUCT_BUTTON).click();
         return this;
     }
 }
